@@ -9,7 +9,6 @@ fileList = os.listdir()
 regex = re.compile(".*\.(mp4|avi|flv|mkv|mov|wmv)$")
 
 def newChromeBrowser(headless=True, downloadPath=None):
-    """ Helper function that creates a new Selenium browser """
     options = webdriver.ChromeOptions()
     if headless:
         options.add_argument('headless')
@@ -23,18 +22,29 @@ def newChromeBrowser(headless=True, downloadPath=None):
     browser = webdriver.Chrome(chrome_options=options, executable_path=CHROMEDRIVER_PATH)
     return browser
 
-
+print("Subtitle Downloader Started")
 filtered = list(filter(regex.match, fileList))
+print("File list :")
 print(filtered)
 
+print("Searching...")
 driver = newChromeBrowser(downloadPath = os.getcwd())
+# driver = webdriver.Chrome()
 
 for item in filtered:
     serachTerm = 'https://www.podnapisi.net/en/subtitles/search/?keywords=' + item
     driver.get(serachTerm)
     try:
-        downloadBtn = driver.find_element_by_xpath('//*[@id="page-body"]/div[4]/div/div[6]/table/tbody/tr[1]/td[1]/div[1]/a[1]')
+        # downloadPage = driver.find_element_by_xpath('//*[@id="page-body"]/div[4]/div/div[2]/table/tbody/tr[1]/td[1]/a[1]')
+        downloadPage = driver.find_element_by_class_name("subtitle-entry")                                           
+        # downloadBtn = driver.find_element_by_partial_link_text("download")
+        downloadPage.click()
+        downloadBtn = driver.find_element_by_xpath('//*[@id="page-body"]/div[4]/div/div[2]/form/button')
         downloadBtn.click()
+
     except:
         continue
-    
+
+
+# driver.close()    browser exits before download complete
+print('Done')
