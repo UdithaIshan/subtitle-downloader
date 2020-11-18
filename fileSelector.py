@@ -1,14 +1,7 @@
 import os
+import re
 
 fileList = os.listdir()
+regex = re.compile(".*\.(mp4|avi|flv|mkv|mov|wmv)$")
 
-def check(name):
-    if 'py' in name:
-        return True
-    else:
-        return False
-
-filtered = filter(check, fileList)
-
-for s in filtered:
-    print(s)
+filtered = filter(regex.match, fileList)
