@@ -19,7 +19,7 @@ def newChromeBrowser(headless=True, downloadPath=None):
         prefs["download.default_directory"]=downloadPath
         options.add_experimental_option("prefs", prefs)
         
-    browser = webdriver.Chrome(chrome_options=options, executable_path=CHROMEDRIVER_PATH)
+    browser = webdriver.Chrome(options=options, executable_path=CHROMEDRIVER_PATH)
     return browser
 
 print("Subtitle Downloader Started")
