@@ -46,5 +46,6 @@ for item in filtered:
         continue
 
 
+driver.quit()
 # driver.close()    browser exits before download complete
 print('Done')
